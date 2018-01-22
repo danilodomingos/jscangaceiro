@@ -10,7 +10,9 @@
 <body class="container">
     
     <h1 class="text-center">Negociações</h1>
-    
+
+    <div id="mensagemView"></div>
+
     <form class="form">
         
         <div class="form-group">
@@ -41,17 +43,15 @@
     </div> 
     <br>
     <br>
-    <div id="negociacoes"></div>
-
+    <div id="negociacoes"></div> 
     <script src="app/domain/negociacao/Negociacao.js"></script>
-    <script src="app/domain/negociacao/Negociacoes.js"></script>
-    <script src="app/ui/view/NegociacoesView.js"></script>
     <script src="app/controllers/NegociacaoController.js"></script>
     <script src="app/ui/converters/DateConverter.js"></script>
-
+    <script src="app/domain/negociacao/Negociacoes.js"></script>
+    <script src="app/ui/view/View.js"></script>
+    <script src="app/ui/view/NegociacoesView.js"></script>
+    <script src="app/ui/view/MensagemView.js"></script>
+    <script src="app/ui/models/Mensagem.js"></script>
     <script src="app/app.js"></script>
-    <script>
-
-    </script>
 </body>
 </html>
