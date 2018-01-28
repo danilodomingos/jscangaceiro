@@ -15,6 +15,7 @@ class DateConverter{
             throw new DataInvalidaException('Deve estar no formato dd/mm/aaaa');
 
         return new Date(...texto.split('/')
+                    .reverse()
                     .map((item, indice) => item - indice % 2));
     }
 }

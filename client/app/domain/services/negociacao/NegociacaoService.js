@@ -19,7 +19,7 @@ class NegociacaoService {
             );
     }
 
-    obterNegociacoesDaSemanaAnterior(){
+    obterNegociacoesDaSemanaPassada(){
         return this._http.get('negociacoes/anterior')
             .then(
 
@@ -45,5 +45,22 @@ class NegociacaoService {
                 },
                 err => { throw new Error('Não foi possível obter as negociações da semana retrasada.'); }
             );
+    }
+
+    obterNegociacoesDoPeriodo(){
+
+        return Promise.all([
+            this.obterNegociacoesDaSemana(),
+            this.obterNegociacoesDaSemanaPassada(),
+            this.obterNegociacoesDaSemanaRetrasada()
+        ])
+        .then(periodo => {
+            return periodo.reduce((novoArray, item) => novoArray.concat(item), [])
+                          .sort((a,b) => b.data.getTime() - a.data.getTime());
+        })
+        .catch(err => {
+            console.log(err);
+            throw new Error('Não foi possível obter as negociações do período.');
+        });
     }
 }

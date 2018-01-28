@@ -49,27 +49,20 @@ class NegociacaoController {
 
     importaNegociacoes(){
 
-        const negociacoes = [];
-        
-        this._service.obterNegociacoesDaSemana()
-            .then(semana => {
+        this._service.obterNegociacoesDoPeriodo()
+        .then(negociacoes => {
+            
+            negociacoes.filter(novaNegociacao =>
 
-                negociacoes.push(...semana);
-                return this._service.obterNegociacoesDaSemanaAnterior(); // <-- ENCADEAMENTO DE PROMISES -->
-            })
-            .then(semanaAnterior => {
+                !this._negociacoes.paraArray().some(negociacaoExistente =>
 
-                negociacoes.push(...semanaAnterior);
-                return this._service.obterNegociacoesDaSemanaRetrasada();
-            })
-            .then(semanaRetrasada =>{
-                
-                negociacoes.push(...semanaRetrasada);
+                    novaNegociacao.equals(negociacaoExistente)))
 
-                negociacoes.forEach(negociacao => this._negociacoes.adiciona(negociacao));
-                this._mensagem.texto = 'Negociações importadas com sucesso.';
-            })
-            .catch(err => this._mensagem.texto = err);
+                .forEach(negociacao => this._negociacoes.adiciona(negociacao));
+
+            this._mensagem.texto = 'Negociações importadas com sucesso.';
+        })
+        .catch(err => this._mensagem.texto = err);
     }
 
     _limpaFormulario() {
